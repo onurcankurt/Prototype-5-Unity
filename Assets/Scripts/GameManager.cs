@@ -16,19 +16,43 @@ public class GameManager : MonoBehaviour
     public bool isGameActive;
     public Button restartButton;
 
+    public AudioSource audioSource;
+    public Slider volumeSlider;
+    private const string volumeLevelKey = "VolumeLevel"; // PlayerPrefs key
+
     public GameObject titleScreen;
 
     private float spawnRate = 1.0f;
     public int lives = 3;
+
+
+    public bool isPauseActive = false;
+    public GameObject pausePanel;
+
+
     void Start()
     {
         livesText.text = "Lives: " + lives;
+        audioSource.Play();
+        float soundLevel = PlayerPrefs.GetFloat(volumeLevelKey, 0.5f);
+        volumeSlider.value = soundLevel;
+        audioSource.volume = soundLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.F) && isGameActive)
+        {
+            if (isPauseActive)
+            {
+                ContinueGame();
+            }
+            else
+            {
+                PauseGame();
+            }
+        }
     }
     
     IEnumerator SpawnTarget()
@@ -68,6 +92,41 @@ public class GameManager : MonoBehaviour
         score = 0;
         UpdateScore(0);
         titleScreen.gameObject.SetActive(false);
+    }
+
+    public void AdjustVolume()
+    {
+        audioSource.volume = volumeSlider.value;
+        PlayerPrefs.SetFloat(volumeLevelKey, volumeSlider.value);
+        PlayerPrefs.Save(); // PlayerPrefs deðiþikliklerini kaydet
+    }
+
+
+    void PauseGame()
+    {
+        Time.timeScale = 0f; // Zamaný duraklat
+        isPauseActive = true;
+        audioSource.Pause();
+
+        // Pause panelini aktif hale getir
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+    }
+
+    void ContinueGame()
+    {
+        Time.timeScale = 1f; // Zamaný normale çevir
+        isPauseActive = false;
+        audioSource.Play();
+
+        // Pause panelini deaktif hale getir
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+        
     }
 
 
