@@ -29,9 +29,12 @@ public class GameManager : MonoBehaviour
     public bool isPauseActive = false;
     public GameObject pausePanel;
 
+    private SC_CursorTrail cursorTrail;
 
     void Start()
     {
+        cursorTrail = GameObject.Find("Main Camera").GetComponent<SC_CursorTrail>();
+
         livesText.text = "Lives: " + lives;
         audioSource.Play();
         float soundLevel = PlayerPrefs.GetFloat(volumeLevelKey, 0.5f);
@@ -52,6 +55,11 @@ public class GameManager : MonoBehaviour
             {
                 PauseGame();
             }
+        }
+
+        if(isPauseActive || !isGameActive)
+        {
+            cursorTrail.trail.enabled = false;
         }
     }
     

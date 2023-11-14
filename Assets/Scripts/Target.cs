@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Target : MonoBehaviour
@@ -28,7 +29,7 @@ public class Target : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+  
     }
 
     Vector3 RandomForce()
@@ -47,14 +48,14 @@ public class Target : MonoBehaviour
         return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
     }
 
-    private void OnMouseDown()
+    private void OnMouseEnter()
     {
-        if(gameManager.isGameActive && !gameManager.isPauseActive)
+        if (gameManager.isGameActive && !gameManager.isPauseActive && Input.GetMouseButton(0))
         {
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
-        }   
+        }
     }
 
     private void OnTriggerEnter(Collider other)

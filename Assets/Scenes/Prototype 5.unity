@@ -639,6 +639,7 @@ GameObject:
   - component: {fileID: 534669905}
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
+  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -720,6 +721,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534669906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d46293bf4b5c6498f4a59331770631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailColor: {r: 1, g: 0, b: 0.38, a: 1}
+  distanceFromCamera: 10
+  startWidth: 0.1
+  endWidth: 0
+  trailTime: 0.24
+  trail: {fileID: 0}
 --- !u!1 &576207970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,7 +1526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1111882212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3355,7 +3374,8 @@ MonoBehaviour:
   volumeSlider: {fileID: 1384533776}
   titleScreen: {fileID: 1670668893}
   lives: 3
-  pausePanel: {fileID: 0}
+  isPauseActive: 0
+  pausePanel: {fileID: 1111882211}
 --- !u!4 &1945592084
 Transform:
   m_ObjectHideFlags: 0
