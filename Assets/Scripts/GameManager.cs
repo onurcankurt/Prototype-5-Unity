@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> targets;
     private int score;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI livesText;
     public TextMeshProUGUI gameOverText;
     public bool isGameActive;
     public Button restartButton;
@@ -18,9 +19,10 @@ public class GameManager : MonoBehaviour
     public GameObject titleScreen;
 
     private float spawnRate = 1.0f;
+    public int lives = 3;
     void Start()
     {
-        
+        livesText.text = "Lives: " + lives;
     }
 
     // Update is called once per frame

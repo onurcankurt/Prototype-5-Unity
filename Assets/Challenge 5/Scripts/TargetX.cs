@@ -8,6 +8,7 @@ public class TargetX : MonoBehaviour
     private GameManagerX gameManagerX;
     public int pointValue;
     public GameObject explosionFx;
+    
 
     public float timeOnScreen = 1.0f;
 
@@ -61,9 +62,15 @@ public class TargetX : MonoBehaviour
     {
         Destroy(gameObject);
 
-        if (other.gameObject.CompareTag("Sensor") && !gameObject.CompareTag("Bad"))
+        if (other.gameObject.CompareTag("Sensor") && !gameObject.CompareTag("Bad") && gameManagerX.lives == 0)
         {
             gameManagerX.GameOver();
+        }
+
+        if (other.gameObject.CompareTag("Sensor") && !gameObject.CompareTag("Bad") && gameManagerX.lives > 0)
+        {
+            gameManagerX.lives--;
+            gameManagerX.livesText.text = "Lives: " + gameManagerX.lives;
         } 
 
     }

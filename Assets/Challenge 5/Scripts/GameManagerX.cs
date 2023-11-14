@@ -9,24 +9,38 @@ public class GameManagerX : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI countdownText;
+    public TextMeshProUGUI livesText;
     public TextMeshProUGUI gameOverText;
     public GameObject titleScreen;
-    public Button restartButton; 
+    public Button restartButton;
+    public AudioSource audioSource;
 
     public List<GameObject> targetPrefabs;
+    public Slider volumeSlider;
 
     private int score;
     private float spawnRate = 1.5f;
     public bool isGameActive;
     public float countdownTimer = 60f;
+    public int lives = 3;
 
     private float spaceBetweenSquares = 2.5f; 
     private float minValueX = -3.75f; //  x value of the center of the left-most square
     private float minValueY = -3.75f; //  y value of the center of the bottom-most square
-    
+
+    private const string volumeLevelKey = "VolumeLevel"; // PlayerPrefs key
+
+    private void Start()
+    {
+        audioSource.Play();
+        float soundLevel = PlayerPrefs.GetFloat(volumeLevelKey, 0.5f);
+        volumeSlider.value = soundLevel;
+        audioSource.volume = soundLevel;
+    }
+
     // Start the game, remove title screen, reset score, and adjust spawnRate based on difficulty button clicked
     public void StartGame(int difficulty)
-    {
+    {        
         spawnRate /= difficulty;
         isGameActive = true;
         StartCoroutine(SpawnTarget());
@@ -100,6 +114,13 @@ public class GameManagerX : MonoBehaviour
         }
         isGameActive = false;
         GameOver();
+    }
+
+    public void AdjustVolume()
+    {
+        audioSource.volume = volumeSlider.value;
+        PlayerPrefs.SetFloat(volumeLevelKey, volumeSlider.value);
+        PlayerPrefs.Save(); // PlayerPrefs değişikliklerini kaydet
     }
 
 }
